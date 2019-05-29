@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "vue-cli-service serve"
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "dependencies": {
     "@vue/cli-plugin-typescript": "^3.8.1",
@@ -15,9 +16,12 @@
     "bootstrap-vue": "^2.0.0-rc.21",
     "core-js": "^2.6.5",
     "es6-promise": "^4.2.6",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
     "node-sass": "^4.12.0",
+    "path": "^0.12.7",
     "sass-loader": "^7.1.0",
+    "serve-static": "^1.14.1",
     "typescript": "^3.4.5",
     "typescript-eslint-parser": "^22.0.0",
     "vue": "^2.6.10",
