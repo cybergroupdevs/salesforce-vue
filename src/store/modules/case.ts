@@ -2,9 +2,9 @@ import {
   Module,
   VuexModule,
   getModule,
-  MutationAction,
   Action,
   Mutation,
+  MutationAction,
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { Case } from '../models'
@@ -16,7 +16,7 @@ import {
 
 export interface ICaseState extends Case {}
 
-@Module({ name: 'finance', store, dynamic: true, namespaced: true })
+@Module({ name: 'case', store, dynamic: true, namespaced: true })
 class CaseModule extends VuexModule implements ICaseState {
   accountid = ''
   status = ''
@@ -24,6 +24,7 @@ class CaseModule extends VuexModule implements ICaseState {
   description = ''
   subject = ''
   casenumber = ''
+  contactid = ''
   caseList = []
 
   @Mutation
@@ -54,6 +55,7 @@ class CaseModule extends VuexModule implements ICaseState {
       this.description = result.data.description
       this.subject = result.data.subject
       this.casenumber = result.data.casenumber
+      this.contactid = result.data.contactid
     }
   }
 
@@ -78,6 +80,29 @@ class CaseModule extends VuexModule implements ICaseState {
       const errorJson = await e.json()
       error = `Bad Request: ${errorJson.message}`
       throw error
+    }
+  }
+
+  @MutationAction({
+    mutate: [
+      'accountid',
+      'status',
+      'origin',
+      'description',
+      'subject',
+      'casenumber',
+      'contactid',
+    ],
+  })
+  async resetCaseData() {
+    return {
+      accountid: '',
+      status: '',
+      origin: '',
+      description: '',
+      subject: '',
+      casenumber: '',
+      contactid: '',
     }
   }
 }
