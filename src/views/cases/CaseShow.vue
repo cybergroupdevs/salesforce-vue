@@ -175,7 +175,7 @@ export default class CaseShow extends Vue {
   contactid = ''
   type = ''
   reason = ''
-  prority = ''
+  priority = ''
   account = null
   contact = null
   loading = true
@@ -244,7 +244,7 @@ export default class CaseShow extends Vue {
       subject: this.subject,
       type: this.type,
       reason: this.reason,
-      prority: this.prority,
+      priority: this.priority,
     }
     try {
       await CaseModule.updateCase(caseData)

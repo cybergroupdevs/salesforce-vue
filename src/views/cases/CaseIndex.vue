@@ -31,7 +31,7 @@
               <tr>
                 <th scope="col">Case Number</th>
                 <th scope="col">Account #</th>
-                <th scope="col">Prority</th>
+                <th scope="col">Priority</th>
                 <th scope="col">Status</th>
                 <th scope="col">Origin</th>
                 <th scope="col">Subject</th>
