@@ -75,6 +75,9 @@ export default class CaseIndex extends Vue {
     await CaseModule.getAllCases()
     if (this.deletedCase) {
       this.showDeleteSuccess = true
+      setTimeout(() => {
+          this.showDeleteSuccess = false
+        }, 5000)
     }
     this.loading = false
   }

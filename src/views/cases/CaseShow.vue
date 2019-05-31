@@ -190,6 +190,9 @@ export default class CaseShow extends Vue {
       this.loading = false
       if (this.newCase) {
         this.showNewSuccess = true
+        setTimeout(() => {
+          this.showNewSuccess = false
+        }, 5000)
       }
     } catch (e) {
       alert(e)
