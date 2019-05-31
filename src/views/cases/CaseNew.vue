@@ -146,6 +146,8 @@ export default class CaseNew extends Vue {
 
   async getContacts() {
     this.loading = true
+    this.contacts = []
+    this.contactid = ''
     await AccountModule.getAllAccountContacts(this.accountid)
     this.contacts = AccountModule.contactList
     this.loading = false
