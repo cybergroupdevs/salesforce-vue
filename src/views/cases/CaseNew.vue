@@ -23,7 +23,7 @@
             </select>
           </div>
           <div class="col-6" v-if="contacts.length > 0">
-            <label>Account ID</label>
+            <label>Contact</label>
             <select class="form-control" v-model="contactid">
               <option
                 v-for="contact in contacts"
