@@ -175,8 +175,8 @@ export default class CaseNew extends Vue {
     }
     await CaseModule.createCase(caseData)
     this.$router.push({
-      path: '/case/' + CaseModule.casenumber,
-      params: { newCase: 'true' },
+      name: 'CaseShow',
+      params: { newCase: true, id: CaseModule.id },
     })
   }
 }

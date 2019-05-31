@@ -41,10 +41,10 @@
               <router-link
                 v-for="(value, i) in cases"
                 :key="i"
-                :to="'/case/' + value.casenumber"
+                :to="'/case/' + value.id"
                 tag="tr"
               >
-                <td>{{ value.casenumber }}</td>
+                <td>{{ value.casenumber || 'pending' }}</td>
                 <td>{{ value.accountid }}</td>
                 <td>{{ value.priority }}</td>
                 <td>{{ value.status }}</td>
@@ -68,16 +68,12 @@ import CaseModule from '@/store/modules/case'
 
 @Component({})
 export default class CaseIndex extends Vue {
-  @Prop(String) deletedCase
+  @Prop({ default: false, type: Boolean }) deletedCase
   loading = true
   showDeleteSuccess = false
   async created() {
     await CaseModule.getAllCases()
-    if (
-      this.$router.params &&
-      this.$router.params.deletedCase &&
-      this.$router.params.deletedCase == 'true'
-    ) {
+    if (this.deletedCase) {
       this.showDeleteSuccess = true
     }
     this.loading = false

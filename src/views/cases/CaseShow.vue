@@ -23,8 +23,11 @@
       </div>
     </div>
     <div class="card md-0" v-if="!loading">
-      <div class="card-header">
-        <b>Case #{{ caseNumber }}</b>
+      <div class="card-header" v-if="casenumber">
+        <b>Case #{{ casenumber }}</b>
+      </div>
+      <div class="card-header" v-if="!casenumber">
+        <b><span class="badge badge-warning">Pending Case Number</span></b>
       </div>
       <div class="card-body">
         <div class="row">
@@ -162,8 +165,8 @@ import ContactModule from '@/store/modules/contact'
 
 @Component({})
 export default class CaseShow extends Vue {
-  @Prop(String) caseNumber
-  @Prop(String) newCase
+  @Prop([Number, String]) id
+  @Prop({ default: false, type: Boolean }) newCase
   accountid = ''
   status = ''
   origin = ''
@@ -181,15 +184,11 @@ export default class CaseShow extends Vue {
   showNewSuccess = false
   async created() {
     try {
-      await CaseModule.getCase(this.caseNumber)
+      await CaseModule.getCase(this.id)
       await this.setData()
       await this.setRelationData()
       this.loading = false
-      if (
-        this.$router.params &&
-        this.$router.params.newCase &&
-        this.$router.params.newCase == 'true'
-      ) {
+      if (this.newCase) {
         this.showNewSuccess = true
       }
     } catch (e) {
@@ -198,6 +197,7 @@ export default class CaseShow extends Vue {
   }
 
   setData() {
+    this.casenumber = CaseModule.casenumber
     this.accountid = CaseModule.accountid
     this.status = CaseModule.status
     this.origin = CaseModule.origin
@@ -257,10 +257,10 @@ export default class CaseShow extends Vue {
 
   async deleteCase() {
     if (window.confirm('Are you sure you want to delete this case?')) {
-      await CaseModule.deleteCase(this.caseNumber)
+      await CaseModule.deleteCase(this.id)
       this.$router.push({
-        path: '/',
-        params: { deletedCase: 'true' },
+        name: 'CaseIndex',
+        params: { deletedCase: true },
       })
     } else {
       return

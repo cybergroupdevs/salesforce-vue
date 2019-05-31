@@ -17,7 +17,7 @@ export default new Router({
       props: true,
     },
     {
-      path: '/case/:caseNumber',
+      path: '/case/:id',
       name: 'CaseShow',
       component: CaseShow,
       props: true,

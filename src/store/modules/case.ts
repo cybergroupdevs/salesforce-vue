@@ -20,6 +20,7 @@ export interface ICaseState extends Case {}
 
 @Module({ name: 'case', store, dynamic: true, namespaced: true })
 class CaseModule extends VuexModule implements ICaseState {
+  id = ''
   accountid = ''
   status = ''
   origin = ''
@@ -54,6 +55,7 @@ class CaseModule extends VuexModule implements ICaseState {
   @Mutation
   UPDATE_CASE_ATTRIBUTES(result: any) {
     if (result) {
+      this.id = result.data.id
       this.accountid = result.data.accountid
       this.status = result.data.status
       this.origin = result.data.origin
@@ -68,9 +70,9 @@ class CaseModule extends VuexModule implements ICaseState {
   }
 
   @Action({ commit: 'UPDATE_CASE_ATTRIBUTES', rawError: true })
-  async getCase(casenumber: string) {
+  async getCase(id: string) {
     try {
-      return await getCaseFromApi(casenumber)
+      return await getCaseFromApi(id)
     } catch (e) {
       let error
       const errorJson = await e.json()
@@ -94,7 +96,7 @@ class CaseModule extends VuexModule implements ICaseState {
   @Action({ commit: 'UPDATE_CASE_ATTRIBUTES', rawError: true })
   async updateCase(caseData: object) {
     try {
-      return await updateCaseFromApi(this.casenumber, caseData)
+      return await updateCaseFromApi(this.id, caseData)
     } catch (e) {
       let error
       const errorJson = await e.json()
@@ -133,9 +135,9 @@ class CaseModule extends VuexModule implements ICaseState {
   }
 
   @Action({})
-  async deleteCase(casenumber: string) {
+  async deleteCase(id: string) {
     try {
-      await deleteCaseFromApi(casenumber)
+      await deleteCaseFromApi(id)
       await this.resetCaseData()
       return {}
     } catch (e) {

@@ -3,6 +3,7 @@ export interface Environment {
 }
 
 export interface Case {
+  id: string
   accountid: string,
   status: string,
   origin: string,

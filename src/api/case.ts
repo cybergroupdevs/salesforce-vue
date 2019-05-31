@@ -7,14 +7,14 @@ export async function getAllCasesFromApi() {
   return await ajax.json(`${sfApiUrl}/api/cases`, { method: 'GET' })
 }
 
-export async function getCaseFromApi(casenumber: string) {
-  return await ajax.json(`${sfApiUrl}/api/case/${casenumber}`, {
+export async function getCaseFromApi(id: string) {
+  return await ajax.json(`${sfApiUrl}/api/case/${id}`, {
     method: 'GET',
   })
 }
 
-export async function updateCaseFromApi(casenumber: string, caseData: object) {
-  return await ajax.json(`${sfApiUrl}/api/case/${casenumber}`, {
+export async function updateCaseFromApi(id: string, caseData: object) {
+  return await ajax.json(`${sfApiUrl}/api/case/${id}`, {
     method: 'PUT',
     body: JSON.stringify(caseData),
   })
@@ -27,8 +27,8 @@ export async function createCaseFromApi(caseData: object) {
   })
 }
 
-export async function deleteCaseFromApi(casenumber: string) {
-  return await ajax.json(`${sfApiUrl}/api/case/${casenumber}`, {
+export async function deleteCaseFromApi(id: string) {
+  return await ajax.json(`${sfApiUrl}/api/case/${id}`, {
     method: 'DELETE',
   })
 }
