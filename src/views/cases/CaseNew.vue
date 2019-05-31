@@ -7,7 +7,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6" v-if="accounts.length > 0">
-            <label>Select Account</label>
+            <label>Account</label>
             <select
               class="form-control"
               v-model="accountid"
