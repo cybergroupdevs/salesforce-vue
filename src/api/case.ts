@@ -30,5 +30,6 @@ export async function createCaseFromApi(caseData: object) {
 export async function deleteCaseFromApi(id: string) {
   return await ajax.json(`${sfApiUrl}/api/case/${id}`, {
     method: 'DELETE',
+    body: JSON.stringify({}),
   })
 }

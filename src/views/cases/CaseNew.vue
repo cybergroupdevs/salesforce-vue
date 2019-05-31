@@ -165,13 +165,6 @@ export default class CaseNew extends Vue {
       type: this.type,
       reason: this.reason,
       priority: this.priority,
-      externalid__c:
-        Math.random()
-          .toString(36)
-          .substring(2, 15) +
-        Math.random()
-          .toString(36)
-          .substring(2, 15),
     }
     await CaseModule.createCase(caseData)
     this.$router.push({
