@@ -19,3 +19,16 @@ export async function updateCaseFromApi(casenumber: string, caseData: object) {
     body: JSON.stringify(caseData),
   })
 }
+
+export async function createCaseFromApi(caseData: object) {
+  return await ajax.json(`${sfApiUrl}/api/cases`, {
+    method: 'POST',
+    body: JSON.stringify(caseData),
+  })
+}
+
+export async function deleteCaseFromApi(casenumber: string) {
+  return await ajax.json(`${sfApiUrl}/api/case/${casenumber}`, {
+    method: 'DELETE',
+  })
+}

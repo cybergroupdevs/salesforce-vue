@@ -91,6 +91,8 @@ class AccountModule extends VuexModule implements ICaseState {
     mutate: ['sfid', 'name', 'phone', 'type', 'industry'],
   })
   async resetAccountData() {
+    this.accountList = []
+    this.contactList = []
     return {
       sfid: '',
       name: '',

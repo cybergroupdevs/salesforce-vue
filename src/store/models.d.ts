@@ -7,8 +7,11 @@ export interface Case {
   status: string,
   origin: string,
   description: string,
-  subject: string
-  contactid: string
+  subject: string,
+  contactid: string,
+  type: string,
+  reason: string,
+  priority: string
 }
 
 export interface Account {

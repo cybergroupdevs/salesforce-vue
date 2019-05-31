@@ -67,6 +67,7 @@ class ContactModule extends VuexModule implements ICaseState {
     mutate: ['sfid', 'name', 'accountid', 'phone', 'email'],
   })
   async resetContactData() {
+    this.contactList = []
     return {
       sfid: '',
       name: '',

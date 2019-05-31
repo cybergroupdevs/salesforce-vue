@@ -12,6 +12,8 @@ import {
   getAllCasesFromApi,
   getCaseFromApi,
   updateCaseFromApi,
+  createCaseFromApi,
+  deleteCaseFromApi,
 } from '@/api/case'
 
 export interface ICaseState extends Case {}
@@ -25,6 +27,9 @@ class CaseModule extends VuexModule implements ICaseState {
   subject = ''
   casenumber = ''
   contactid = ''
+  type = ''
+  reason = ''
+  priority = ''
   caseList = []
 
   @Mutation
@@ -56,6 +61,9 @@ class CaseModule extends VuexModule implements ICaseState {
       this.subject = result.data.subject
       this.casenumber = result.data.casenumber
       this.contactid = result.data.contactid
+      this.type = result.data.type
+      this.reason = result.data.reason
+      this.priority = result.data.priority
     }
   }
 
@@ -63,6 +71,18 @@ class CaseModule extends VuexModule implements ICaseState {
   async getCase(casenumber: string) {
     try {
       return await getCaseFromApi(casenumber)
+    } catch (e) {
+      let error
+      const errorJson = await e.json()
+      error = `Bad Request: ${errorJson.message}`
+      throw error
+    }
+  }
+
+  @Action({ commit: 'UPDATE_CASE_ATTRIBUTES', rawError: true })
+  async createCase(caseData: object) {
+    try {
+      return await createCaseFromApi(caseData)
     } catch (e) {
       let error
       const errorJson = await e.json()
@@ -92,6 +112,9 @@ class CaseModule extends VuexModule implements ICaseState {
       'subject',
       'casenumber',
       'contactid',
+      'type',
+      'reason',
+      'priority',
     ],
   })
   async resetCaseData() {
@@ -103,6 +126,23 @@ class CaseModule extends VuexModule implements ICaseState {
       subject: '',
       casenumber: '',
       contactid: '',
+      type: '',
+      reason: '',
+      priority: '',
+    }
+  }
+
+  @Action({})
+  async deleteCase(casenumber: string) {
+    try {
+      await deleteCaseFromApi(casenumber)
+      await this.resetCaseData()
+      return {}
+    } catch (e) {
+      let error
+      const errorJson = await e.json()
+      error = `Bad Request: ${errorJson.message}`
+      throw error
     }
   }
 }

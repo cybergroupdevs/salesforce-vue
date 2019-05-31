@@ -1,8 +1,23 @@
 <template>
   <div>
+    <router-link tag="button" :to="'/new_case'" class="btn btn-success">
+      Create New Case
+    </router-link>
+    <hr />
     <div class="w-100 text-center" v-if="loading">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="row" v-if="showDeleteSuccess">
+      <div class="col-12">
+        <div
+          id="link-success"
+          class="alert alert-success"
+          v-if="showDeleteSuccess"
+        >
+          Case deleted successfully!
+        </div>
       </div>
     </div>
     <div class="card md-0" v-if="!loading">
@@ -16,6 +31,7 @@
               <tr>
                 <th scope="col">Case Number</th>
                 <th scope="col">Account #</th>
+                <th scope="col">Prority</th>
                 <th scope="col">Status</th>
                 <th scope="col">Origin</th>
                 <th scope="col">Subject</th>
@@ -30,6 +46,7 @@
               >
                 <td>{{ value.casenumber }}</td>
                 <td>{{ value.accountid }}</td>
+                <td>{{ value.priority }}</td>
                 <td>{{ value.status }}</td>
                 <td>{{ value.origin }}</td>
                 <td>{{ value.subject }}</td>
@@ -46,14 +63,23 @@
 </template>
 
 <script>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import CaseModule from '@/store/modules/case'
 
 @Component({})
 export default class CaseIndex extends Vue {
+  @Prop(String) deletedCase
   loading = true
+  showDeleteSuccess = false
   async created() {
     await CaseModule.getAllCases()
+    if (
+      this.$router.params &&
+      this.$router.params.deletedCase &&
+      this.$router.params.deletedCase == 'true'
+    ) {
+      this.showDeleteSuccess = true
+    }
     this.loading = false
   }
 
